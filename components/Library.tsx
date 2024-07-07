@@ -1,6 +1,7 @@
 'use client'
 
 import useAuthModal from "@/hooks/useAuthModal";
+import useOnPlay from "@/hooks/useOnPlay";
 import useUploadModal from "@/hooks/useUploadModal";
 import { useUser } from "@/hooks/useUser";
 import { Song } from "@/types";
@@ -18,6 +19,9 @@ const Library: React.FC<LibraryProps> = ({
     const authModal = useAuthModal();
     const uploadModal = useUploadModal();
     const { user } = useUser();
+
+    const onPlay = useOnPlay(songs);
+
     const onClick = () => {
         if(!user) {
             return authModal.onOpen();
@@ -78,7 +82,7 @@ const Library: React.FC<LibraryProps> = ({
             >
                 {songs.map((item) => (
                     <MediaItem 
-                        onClick={() => {}}
+                        onClick={(id: string) => onPlay(id)}
                         key={item.id}
                         data={item}
                     />
